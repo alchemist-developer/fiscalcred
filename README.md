@@ -171,6 +171,32 @@ Depois da separação dos arquivos, a validação mais adequada é:
 node --check index.js
 ```
 
+## Testes automatizados
+
+O projeto possui testes Cypress em `cypress/e2e`.
+
+Specs atuais:
+
+- `navigation.cy.js`: CTAs de WhatsApp, âncoras internas, botões principais, Instagram e menu mobile.
+- `content.cy.js`: metadados, seções principais, esteira de clientes, cards de serviços e fotos dos fundadores.
+- `interactions.cy.js`: FAQ, contadores, canvas de partículas, botão flutuante de WhatsApp e mapa.
+- `responsive.cy.js`: navegação desktop, menu mobile e presença dos principais cards em telas pequenas.
+
+Para instalar dependências e rodar contra produção:
+
+```powershell
+npm install
+npm run test:e2e
+```
+
+## Rotina semanal
+
+O workflow `.github/workflows/weekly-cypress.yml` roda os testes Cypress automaticamente toda quarta-feira às 12h no horário de São Paulo.
+
+Ele também pode ser executado manualmente pelo `workflow_dispatch` no GitHub Actions.
+
+Os testes usam a URL de produção configurada em `cypress.config.js`: `https://fiscalcred.vercel.app`.
+
 ## Observações para manutenção
 
 - Para alterar textos, prefira editar `content` em `index.js`.

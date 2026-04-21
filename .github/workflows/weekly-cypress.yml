@@ -1,0 +1,26 @@
+name: Weekly Cypress checks
+
+on:
+  schedule:
+    # Runs every Wednesday at 12:00 America/Sao_Paulo (15:00 UTC).
+    - cron: '0 15 * * 3'
+  workflow_dispatch:
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Cypress
+        run: npm run test:e2e

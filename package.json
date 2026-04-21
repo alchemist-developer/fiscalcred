@@ -1,0 +1,11 @@
+{
+  "name": "fiscalcred-landing",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:e2e": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^15.5.0"
+  }
+}
