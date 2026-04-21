@@ -177,4 +177,4 @@ node --check index.js
 - Para alterar layout, prefira editar classes em `index.css`.
 - Para adicionar uma nova seção, crie uma função `renderNovaSecao()` em `index.js` e inclua essa função no array `app.innerHTML`.
 - Evite editar diretamente o HTML gerado dentro do navegador, porque a página é renderizada pelo JavaScript.
-- Se trocar URLs de imagens, valide se elas carregam em janela anônima ou fora do painel administrativo do WordPress.
+- Se trocar URLs de imagens, valide se elas carregam em janela anônima ou fora do painel administrativo do WordPress (onde podem originalmente estar hospedadas).
