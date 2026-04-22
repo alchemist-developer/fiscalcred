@@ -148,11 +148,14 @@ Padrões visuais:
 
 ## Assets externos
 
-A página usa imagens hospedadas no domínio da Fiscal Cred:
+A página usa uma imagem local para o fundo do hero:
+
+- `assets/hero-bg.png`.
+
+As demais imagens são hospedadas no domínio da Fiscal Cred:
 
 - logo;
 - favicon;
-- hero;
 - serviços;
 - depoimentos;
 - fundadores.

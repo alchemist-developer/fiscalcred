@@ -29,7 +29,7 @@ const content = {
   },
   nav: [
     { label: 'Home', href: '#home' },
-    { label: 'Projeto', href: '#como-funciona' },
+    { label: 'Soluções', href: '#como-funciona' },
     { label: 'Serviços', href: '#servicos' },
     { label: 'Sobre', href: '#sobre' },
     { label: 'Contato', href: '#contato' }
@@ -38,7 +38,8 @@ const content = {
     eyebrow: 'Serviços Especializados',
     title: 'Sua Empresa sem complicação',
     description: 'Tributar e contabilizar sua empresa deve ser mais do que uma dor de cabeça mensal: deve ser uma solução. A FiscalCred atua além do tradicional para descomplicar sua rotina e trazer resultados sustentáveis.',
-    cta: { label: 'Falar no WhatsApp', href: whatsappHref, variant: 'primary' }
+    cta: { label: 'Falar no WhatsApp', href: whatsappHref, variant: 'primary' },
+    secondaryCta: { label: 'Conhecer soluções', href: '#servicos', variant: 'ghost' }
   },
   testimonials: [
     {
@@ -166,10 +167,13 @@ function createButton(config) {
   if (variant === 'primary') className += ' btn-primary';
   if (variant === 'ghost') className += ' btn-ghost';
   if (variant === 'minimal') className += ' btn-minimal';
+  if (config.icon === 'whatsapp') className += ' btn-whatsapp-icon';
   if (loading) className += ' is-loading';
 
   const spinner = loading ? '<span class="btn-spinner" aria-hidden="true"></span>' : '';
-  const icon = variant === 'minimal' ? '↗' : '→';
+  const icon = config.icon === 'whatsapp'
+    ? '<svg viewBox="0 0 24 24" focusable="false"><path d="M12.04 3.5a8.42 8.42 0 0 0-7.2 12.78l-1.02 3.72 3.82-1a8.42 8.42 0 1 0 4.4-15.5Zm0 1.5a6.92 6.92 0 0 1 5.88 10.56 6.91 6.91 0 0 1-9.76 2.1l-.28-.17-2.05.54.55-2-.18-.29A6.92 6.92 0 0 1 12.04 5Zm-2.3 3.58c-.15 0-.39.06-.6.29-.2.22-.78.76-.78 1.86s.8 2.16.91 2.31c.11.15 1.55 2.48 3.83 3.38 1.9.75 2.29.6 2.7.56.41-.04 1.33-.54 1.52-1.06.19-.52.19-.97.13-1.06-.06-.1-.21-.15-.45-.27-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41Z" fill="currentColor"/></svg>'
+    : (variant === 'minimal' ? '↗' : '→');
 
   return '<a href="' + escapeHtml(href) + '" class="' + className + '">' +
     spinner +
@@ -197,7 +201,7 @@ function renderHeader() {
             ${content.nav.map(function (item) {
     return `<a href="${item.href}">${item.label}</a>`;
   }).join('')}
-            ${createButton({ label: 'Consultar', href: whatsappHref, variant: 'ghost' })}
+            ${createButton({ label: 'Consultar', href: whatsappHref, variant: 'ghost', icon: 'whatsapp' })}
           </nav>
         </header>
       `;
@@ -206,11 +210,15 @@ function renderHeader() {
 function renderHero() {
   return `
         <section id="home" class="hero">
+          <div class="hero-bg" aria-hidden="true"></div>
           <div class="hero-content">
             <h4>${content.hero.eyebrow}</h4>
             <h1>${content.hero.title}</h1>
             <p>${content.hero.description}</p>
-            ${createButton(content.hero.cta)}
+            <div class="hero-actions">
+              ${createButton(content.hero.cta)}
+              ${createButton(content.hero.secondaryCta)}
+            </div>
           </div>
           <div class="hero-visual" aria-label="Depoimentos de clientes">
             ${content.testimonials.map(function (item, i) {
@@ -342,7 +350,6 @@ function renderServices() {
                 <h2 class="section-title">${content.services.title}</h2>
                 <p class="section-copy">Serviços pensados para organizar a operação, reduzir riscos e abrir espaço para decisões melhores.</p>
               </div>
-              <a href="#contato" style="text-decoration:none; color:#111; font-weight:600;">Falar com especialista</a>
             </div>
             <div class="grid services-grid">
               ${content.services.items.map(function (item, index) {
@@ -457,9 +464,6 @@ function renderAbout() {
             <div class="about-copy reveal">
               <p class="section-kicker">Fundadores</p>
               <h2 class="section-title">Conheça o time que cuida da sua empresa</h2>
-              <div class="about-actions">
-                ${createButton({ label: 'Falar com o time', href: whatsappHref, variant: 'minimal' })}
-              </div>
             </div>
             <div class="grid founder-grid">
               ${content.founders.map(function (founder) {
@@ -474,6 +478,9 @@ function renderAbout() {
                 `;
   }).join('')}
             </div>
+            <div class="section-actions about-actions">
+              ${createButton({ label: 'Falar com o time', href: whatsappHref, variant: 'minimal' })}
+            </div>
           </div>
         </section>
       `;
@@ -487,10 +494,6 @@ function renderCTA() {
               <p class="section-kicker">Contato</p>
               <h2 class="section-title">${content.cta.title}</h2>
               <p>${content.cta.description} Fale com a equipe e entenda quais oportunidades fiscais, contábeis e societárias podem fazer sentido para o seu negócio.</p>
-              <div class="cta-actions">
-                ${createButton(content.cta.button)}
-                ${createButton({ label: 'Ver localização', href: '#mapa', variant: 'ghost' })}
-              </div>
             </div>
             <aside class="contact-panel" aria-label="Informações de contato">
               <div class="contact-item">
@@ -506,6 +509,10 @@ function renderCTA() {
                 <p>Suporte próximo, organizado e documentado para empresas em crescimento.</p>
               </div>
             </aside>
+            <div class="section-actions cta-actions">
+              ${createButton(content.cta.button)}
+              ${createButton({ label: 'Ver localização', href: '#mapa', variant: 'ghost' })}
+            </div>
           </div>
         </section>
       `;
