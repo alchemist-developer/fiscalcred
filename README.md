@@ -197,6 +197,45 @@ Ele também pode ser executado manualmente pelo `workflow_dispatch` no GitHub Ac
 
 Os testes usam a URL de produção configurada em `cypress.config.js`: `https://fiscalcred.vercel.app`.
 
+Na rotina Cypress semanal são executadas as seguintes validações:
+
+- Links de WhatsApp apontam para o `wa.me` oficial da Fiscal Cred.
+- Links internos apontam para seções existentes da página.
+- Botões principais preservam seus destinos esperados.
+- Link do Instagram no rodapé aponta para o perfil correto.
+- Menu mobile abre, fecha e mantém a navegação funcionando.
+- Metadados básicos, favicon e estrutura principal da página existem.
+- Seções principais da landing page renderizam em produção.
+- Esteira de clientes possui os nomes esperados e itens duplicados para animação contínua.
+- Cards de serviços renderizam com imagens e links de contato.
+- Cards dos fundadores usam as fotos esperadas de Gilmar e Renata.
+- FAQ abre corretamente e atualiza `aria-expanded`.
+- Contadores da seção de resultados animam quando a seção entra na tela.
+- Canvas de partículas da seção Serviços é renderizado sem bloquear links.
+- Botão flutuante de WhatsApp permanece disponível.
+- Mapa carrega com a query do endereço da Av. Paulista.
+- Layout desktop exibe navegação completa.
+- Layout mobile usa menu hambúrguer.
+- Cards principais continuam presentes em telas pequenas.
+
+## Workflows de segurança
+
+O projeto open source possui workflows gratuitos de segurança e qualidade no GitHub Actions:
+
+- `.github/workflows/codeql.yml`: análise CodeQL para workflows GitHub Actions e JavaScript/TypeScript.
+- `.github/workflows/osv-scanner.yml`: varredura de vulnerabilidades em dependências com OSV Scanner.
+- `.github/workflows/dependency-review.yml`: revisão de mudanças em dependências em pull requests.
+- `.github/workflows/scorecard.yml`: análise OSSF Scorecard da postura de segurança do repositório.
+- `.github/workflows/weekly-cypress.yml`: testes Cypress contra produção.
+
+Na rotina semanal de segurança são executadas as seguintes validações:
+
+- CodeQL analisa workflows GitHub Actions e JavaScript/TypeScript.
+- OSV Scanner verifica vulnerabilidades em dependências do projeto.
+- OSSF Scorecard avalia práticas de segurança do repositório open source.
+
+Em pull requests, a rotina adicional `Dependency Review` verifica mudanças introduzidas nas dependências.
+
 ## Observações para manutenção
 
 - Para alterar textos, prefira editar `content` em `index.js`.
