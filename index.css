@@ -401,6 +401,10 @@ header.menu-open .menu-toggle::after {
     flex-wrap: wrap;
 }
 
+.hero-actions .btn {
+    margin-left: 0;
+}
+
 .hero-content h4 {
     animation-delay: .1s;
 }
@@ -2103,7 +2107,10 @@ footer {
     }
 
     .hero-actions .btn {
-        flex: 1 1 220px;
+        width: 100%;
+        min-height: 48px;
+        flex: 1 1 100%;
+        margin-left: 0;
     }
 
     .hero h1 {
