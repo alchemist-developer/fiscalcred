@@ -1,6 +1,8 @@
-# Fiscal Cred landing page
+<img width="1774" height="887" alt="5fd9f188-7b82-4a94-92b0-b3f5e42a5b9e" src="https://github.com/user-attachments/assets/890591b7-1eac-478a-aa09-70301a98817e" />
 
-Landing page institucional da Fiscal Cred, criada como uma página estática em HTML, CSS e JavaScript puro.
+</br>
+
+<p align=center>Landing page institucional da Fiscal Cred, criada como uma página estática em HTML, CSS e JavaScript puro.</p>
 
 ## Estrutura dos arquivos
 
