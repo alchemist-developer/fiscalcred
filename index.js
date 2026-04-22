@@ -703,6 +703,20 @@ function initReveal() {
   const elements = document.querySelectorAll('.reveal');
   if (!elements.length) return;
 
+  const revealGroups = new Map();
+  elements.forEach(function (el) {
+    const section = el.closest('section') || document.body;
+    const group = revealGroups.get(section) || [];
+    group.push(el);
+    revealGroups.set(section, group);
+  });
+
+  revealGroups.forEach(function (group) {
+    group.forEach(function (el, index) {
+      el.style.setProperty('--reveal-index', Math.min(index, 5));
+    });
+  });
+
   const observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
@@ -728,6 +742,7 @@ function initServiceParticles() {
   let width = 0;
   let height = 0;
   let dpr = 1;
+  let isVisible = false;
 
   function resize() {
     const rect = section.getBoundingClientRect();
@@ -741,6 +756,17 @@ function initServiceParticles() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     createParticles();
     draw();
+  }
+
+  function start() {
+    if (reducedMotion || animationFrame) return;
+    animationFrame = requestAnimationFrame(draw);
+  }
+
+  function stop() {
+    if (!animationFrame) return;
+    cancelAnimationFrame(animationFrame);
+    animationFrame = null;
   }
 
   function createParticles() {
@@ -815,8 +841,10 @@ function initServiceParticles() {
       ctx.fill();
     });
 
-    if (!reducedMotion) {
+    if (!reducedMotion && isVisible) {
       animationFrame = requestAnimationFrame(draw);
+    } else {
+      animationFrame = null;
     }
   }
 
@@ -833,6 +861,19 @@ function initServiceParticles() {
 
   window.addEventListener('resize', resize, { passive: true });
   resize();
+
+  const particleObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        start();
+      } else {
+        stop();
+      }
+    });
+  }, { threshold: 0.05 });
+
+  particleObserver.observe(section);
 
   if (reducedMotion && animationFrame) {
     cancelAnimationFrame(animationFrame);
